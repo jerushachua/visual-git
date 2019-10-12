@@ -1,0 +1,118 @@
+<div class="graph-panel" id="graph-panel" ondragover="allowDrop(event)" ondrop="handleGraphDrop(event)">
+  <!-- auto-detection box on commit graph -->
+  <button id="refresh-button" type="button" class="btn btn-info refresh-graph-btn" (click)="refreshGraph()">Refresh Graph</button>
+  <div id="refresh-graph-alert" class="alert alert-warning" role="alert" tabindex="-1">
+    Commit graph changes detected!
+    <button type="button" class="btn btn-warning refresh-graph-btn" (click)="refreshGraph()">Refresh Graph</button>
+  </div>
+
+  <div class="network" id="my-network">
+  </div>
+
+  <!-- Context menu for operations within the commit network -->
+  <div id="networkContext" class="context-menu" tabindex="-1" (blur)="disableContextMenu()">
+    <ul class="dropdown-menu" id="nodeRightClickMenu">
+      
+      <li>
+        <a (mousedown)="doNothing()" (click)="showCreateTagModal()">Create tag</a>
+      </li>
+      <li>
+        <a (click)="showDeleteTagList()">Delete a tag</a>
+      </li>
+      <li id="deleteTagList"></li>
+      <li id="rightClickMenuItemReset">
+          <a (click)="resetRepoToCommit()" title="undo the latest unpush commit from the current branch">Undo Latest Commit</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="modal fade" id="mergeModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Merge branches</h4>
+        </div>
+        <div class="modal-body">
+          <p id="mergeModalBody"></p>
+        </div>
+        <p class="invisible" id="fromMerge"></p>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="mergeBranches()" data-dismiss="modal">Yes</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+  <div class="modal fade" id="rebaseModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Rebase branches</h4>
+        </div>
+        <div class="modal-body">
+          <p id="rebaseModalBody"></p>
+        </div>
+        <p class="invisible" id="fromRebase"></p>
+        <p class="invisible" id="toRebase"></p>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="mergeBranches()" data-dismiss="modal">Yes</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+  <div class="modal fade" id="authorProfileModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Author</h4>
+        </div>
+        <div class="modal-body">
+          <img id="authorModalImage" src="" style="padding-right: 10px; float: left" width="90" height="80">
+          <div id="authorModalDetails">
+          </div>
+          <p class="clear">&nbsp;</p>
+        </div>
+        <div class="modal-footer">
+          <button id="authorModalProfileButton" type="button" class="btn btn-primary" data-dismiss="modal">View Github Profile</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+
+  <!--Modal for creating a new tag -->
+  <div class="modal fade" id="createTagModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Create Tag</h4>
+        </div>
+        <div class="modal-body">
+          <label>Tag Name:</label><input id="inputTagName" type="text" style="width: 50%;"><br>
+          <label>Push Tag:</label><input id="inputPushTag" type="checkbox" ><br>
+          <label>Create Lightweight Tag:</label><input id="inputPushTag" type="checkbox" (change)="lightweightTagSelected = !lightweightTagSelected"><br>
+          <label>Tag Message:</label><textarea id="inputTagMessage" [attr.disabled]="lightweightTagSelected ? '' : null"></textarea><br>
+          <p class="clear">&nbsp;</p>
+        </div>
+        <div class="modal-footer">
+          <div id="createTagError" class="modal-error"></div>
+          <button id="createTagModalCreateButton" type="button" class="btn btn-primary" (click)="clickSubmitCreateTag()">Create</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+</div>
+<div class="graph-loading" id="graph-loading">
+  <div id="graph-progress-frame">
+      <div id=graph-progress-container>
+        <div id="graph-progress-bar"></div>
+      </div>
+      <div id="loadingGraph">Loading Graph</div>
+  </div>
+</div>
