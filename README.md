@@ -7,7 +7,7 @@ The app is meant to help beginners intuitively learn how git works. The app can 
 
 VisualGit was originally developed at the University of Auckland.
 
-![alt text](assets/visualgit.JPG)
+![alt text](assets/visualgit.JPG =500x500)
 
 ### Installation
 
@@ -30,4 +30,4 @@ or ... for mac
 npm run macstart
 ````
 
-![alt text](assets/example-visualgit.JPG)
+![alt text](assets/example-visualgit.JPG =500x500)
