@@ -7,7 +7,7 @@ The app is meant to help beginners intuitively learn how git works. The app can 
 
 VisualGit was originally developed at the University of Auckland.
 
-![alt text](relative/path/to/visualgit.jpg?raw=true "Visual Git")
+<img src="assets/visualgit.JPG" alt="drawing" width="400" height="400"/>
 
 ### Installation
 
@@ -30,4 +30,6 @@ or ... for mac
 npm run macstart
 ````
 
-![alt text](relative/path/to/example-visualgit.jpg?raw=true "Visual Git Example")
+Below is an example repository opened using visual git. The idea is to visualize commits as nodes. The nodes can branch off when a branch is created and merged back in at a later date.
+
+<img src="assets/example-visualgit.JPG" alt="drawing" width="410" height="469"/>
