@@ -30,4 +30,10 @@ or ... for mac
 npm run macstart
 ````
 
+<<<<<<< HEAD
 ![alt text](relative/path/to/example-visualgit.jpg?raw=true "Visual Git Example")
+=======
+Below is an example repository opened using visual git. The idea is to visualize commits as nodes. The nodes can branch off when a branch is created and merged back in at a later date. 
+
+<img src="assets/example-visualgit.JPG" alt="drawing" width="410" height="469"/>
+>>>>>>> eee9a71... Update README.md
